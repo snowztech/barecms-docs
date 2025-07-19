@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://github.com/snowztech/barecms/blob/main/assets/logo.svg" alt="BareCMS Logo" width="120" height="120">
+<img src="assets/logo.svg" alt="BareCMS Logo" width="120" height="120">
 
 <h1>BareCMS</h1>
 
@@ -224,40 +224,12 @@ docker run -d --name barecms-app \
   ghcr.io/snowztech/barecms:latest
 ```
 
----
-
-## Public Data Access
-
-The key endpoint for headless usage:
-
-```http
-GET /:siteSlug/data
-```
-
-This returns all content for a site without requiring authentication, making it perfect for frontend applications.
-
-**Example usage:**
-
-```javascript
-// Fetch public site data
-const response = await fetch("https://your-cms.com/my-site/data");
-const siteData = await response.json();
-
-// Access collections and entries
-const posts = siteData.collections.posts;
-const pages = siteData.collections.pages;
-```
-
----
-
 ## 📖 Documentation
 
-- **[🚀 Getting Started](getting-started.md)** - Complete setup guide
-- **[🔌 API Reference](api.md)** - Complete API documentation
-- **[🐳 Self-Hosting](self-hosting.md)** - Deploy to production
-- **[⚙️ Development](development.md)** - Contributing to BareCMS
-
----
+- **[Getting Started](getting-started.md)** - Complete setup guide
+- **[API Documentation](api.md)** - Complete API reference
+- **[Self-Hosting](self-hosting.md)** - Deploy to production
+- **[Development](development.md)** - Contributing to BareCMS
 
 ## 🧪 API Reference
 
@@ -301,7 +273,7 @@ _This is the core of headless usage: manage content through the admin interface,
 
 ### 📚 Complete API Documentation
 
-For detailed documentation of all authentication and content management endpoints, see **[API Reference](api.md)**.
+For detailed documentation of all authentication and content management endpoints, see **[API Documentation](api.md)**.
 
 ## 🤝 Contributing
 
