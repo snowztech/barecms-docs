@@ -1,22 +1,44 @@
-# 📖 API Reference
+# API Reference
 
 BareCMS provides a RESTful API for content management and public data access. All authenticated endpoints require a JWT token in the Authorization header.
 
-**Base URL:** `http://localhost:8080`
+## Base URL
+
+```
+http://localhost:8080
+```
+
+## Authentication
+
+Include the JWT token in the Authorization header for all authenticated endpoints:
+
+```
+Authorization: Bearer <your-jwt-token>
+```
 
 ---
 
-## 🌐 Public Data Access
-
-The core of headless usage: manage content through the admin interface, then access all site data publicly via this single endpoint.
+## 🌐 Public Endpoints
 
 ### Get Site Data
 
-**`GET /:siteSlug/data`** - Get all site data publicly (no authentication required)
+Retrieve all site content publicly without authentication.
 
-**Example:** `GET /my-blog/data`
+**Endpoint:** `GET /:siteSlug/data`
 
-**Response:**
+**Description:** Returns all collections and entries for a site using its slug. This is the primary endpoint for headless usage.
+
+**Parameters:**
+
+- `siteSlug` (path) - The unique slug of the site
+
+**Example Request:**
+
+```bash
+curl -X GET http://localhost:8080/my-blog/data
+```
+
+**Example Response:**
 
 ```json
 {
@@ -474,7 +496,7 @@ Authorization: Bearer <your-jwt-token>
 
 ---
 
-## ⚠️ Error Responses
+## Error Responses
 
 All endpoints may return the following error responses:
 
@@ -520,7 +542,7 @@ All endpoints may return the following error responses:
 
 ---
 
-## 💡 Usage Examples
+## Usage Examples
 
 ### Headless CMS Workflow
 

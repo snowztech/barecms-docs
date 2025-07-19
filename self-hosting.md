@@ -1,8 +1,8 @@
-# 🐳 Deployment
+# Self-Hosting BareCMS
 
-Deploy BareCMS on your own server using Docker. This guide provides two deployment options with step-by-step instructions.
+Deploy BareCMS on your own server using Docker. This guide provides comprehensive instructions for production deployment with two deployment options.
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before you begin, ensure your server meets these requirements:
 
@@ -12,9 +12,7 @@ Before you begin, ensure your server meets these requirements:
 - **Git**: [Install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - **Basic Knowledge**: Familiarity with command line operations
 
----
-
-## 🚀 Quick Start
+## Quick Start
 
 ### Common Setup Steps
 
@@ -58,8 +56,6 @@ PORT=8080
 openssl rand -base64 32
 ```
 
----
-
 ## Option 1: Docker Compose (All-in-One)
 
 This option automatically sets up both the application and PostgreSQL database.
@@ -84,8 +80,6 @@ docker compose up -d
 ### Access:
 
 Visit `http://your-server-ip:8080`
-
----
 
 ## Option 2: Docker Only (External Database)
 
@@ -117,9 +111,7 @@ docker run -d \
 
 Visit `http://your-server-ip:8080`
 
----
-
-## 🛠️ Management Commands
+## Management Commands
 
 ### Docker Compose Commands
 
@@ -168,9 +160,7 @@ docker run -d \
   ghcr.io/snowztech/barecms:latest
 ```
 
----
-
-## 🌐 Mapping Your Domain & Enabling HTTPS
+## Mapping Your Domain & Enabling HTTPS
 
 Make your app accessible via your own domain and secure it with HTTPS.
 
@@ -270,9 +260,7 @@ sudo systemctl reload nginx
 sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
 ```
 
----
-
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -341,24 +329,7 @@ If you encounter issues:
 4. **Search existing issues** or create a new one on [GitHub](https://github.com/snowztech/barecms/issues)
 5. **Join our community** for support
 
----
-
-## 📚 Resources & Support
-
-### Documentation
-
-- [Docker Documentation](https://docs.docker.com/)
-- [Docker Compose Documentation](https://docs.docker.com/compose/)
-- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
-- [Caddy Documentation](https://caddyserver.com/docs/)
-- [BareCMS API Documentation](api.md)
-
-### Community & Support
-
-- **GitHub**: [Repository](https://github.com/snowztech/barecms) | [Issues](https://github.com/snowztech/barecms/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/snowztech/barecms/discussions)
-
-### Security Best Practices
+## Security Best Practices
 
 - **Use strong passwords** for database and JWT secret
 - **Keep your system updated**: `sudo apt update && sudo apt upgrade`
@@ -366,6 +337,16 @@ If you encounter issues:
 - **Regular backups**: Set up automated database backups
 - **Monitor logs**: Check application and system logs regularly
 
----
+## Resources & Support
 
-_Last updated: July 2025_
+### Documentation
+
+- [Docker Documentation](https://docs.docker.com/)
+- [Docker Compose Documentation](https://docs.docker.com/compose/)
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
+- [Caddy Documentation](https://caddyserver.com/docs/)
+
+### Community & Support
+
+- **GitHub**: [Repository](https://github.com/snowztech/barecms) | [Issues](https://github.com/snowztech/barecms/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/snowztech/barecms/discussions)
