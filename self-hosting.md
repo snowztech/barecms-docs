@@ -2,20 +2,6 @@
 
 Deploy BareCMS on your own server using Docker. This guide provides two deployment options with step-by-step instructions.
 
-## 📑 Table of Contents
-
-- [📋 Prerequisites](#-prerequisites)
-- [🚀 Quick Start](#-quick-start)
-- [Common Setup Steps](#common-setup-steps)
-- [Option 1: Docker Compose (All-in-One)](#option-1-docker-compose-all-in-one)
-- [Option 2: Docker Only (External Database)](#option-2-docker-only-external-database)
-- [🛠️ Management Commands](#️-management-commands)
-- [🌐 Mapping Your Domain & Enabling HTTPS](#-mapping-your-domain--enabling-https)
-- [🐛 Troubleshooting](#-troubleshooting)
-- [📚 Resources & Support](#-resources--support)
-
----
-
 ## 📋 Prerequisites
 
 Before you begin, ensure your server meets these requirements:

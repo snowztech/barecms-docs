@@ -114,6 +114,7 @@ make up
 
 ## Next Steps
 
+- [**Getting Started**](getting-started) - Get started
 - [**API Reference**](api.md) - Learn about all available endpoints
 - [**Self-Hosting**](self-hosting.md) - Deploy to production
 - [**Development**](development.md) - Contributing to the project

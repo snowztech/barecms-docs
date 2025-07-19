@@ -1,5 +1,9 @@
 # 🧪 API Reference
 
+<!-- docsify-tabs:start -->
+
+#### ** Public API **
+
 ## 🌐 Public Data Access
 
 **`GET /:siteSlug/data`** - Get all site data publicly (no authentication required)
@@ -137,6 +141,8 @@ curl -X GET http://localhost:8080/my-blog/data
 
 ---
 
+#### ** Authentication **
+
 ## 🔐 Authentication Endpoints
 
 ### Register User
@@ -214,6 +220,8 @@ Authorization: Bearer <your-jwt-token>
 ```
 
 ---
+
+#### ** Management **
 
 ## 🏢 Sites Management
 

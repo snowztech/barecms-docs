@@ -44,6 +44,35 @@
       outline: none;
       box-shadow: 0 0 0 2px rgba(51, 51, 51, 0.1);
     }
+
+    /* Hide auto-generated TOC for cleaner sidebar */
+    .sidebar-nav .section-link {
+      display: none;
+    }
+
+    /* Keep only main navigation items visible */
+    .sidebar-nav > ul > li > a {
+      font-weight: 500;
+    }
+
+    /* Style for page TOC when enabled */
+    .page_toc {
+      position: fixed;
+      right: 20px;
+      top: 100px;
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 6px;
+      padding: 15px;
+      max-width: 200px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 768px) {
+      .page_toc {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -60,8 +89,15 @@
       repo: 'snowztech/barecms',
       homepage: 'README.md',
       loadSidebar: true,
-      subMaxLevel: 3,
+      subMaxLevel: 2, // Reduced from 3 to prevent cluttered sidebar
       auto2top: true,
+      mergeNavbar: true, // Better mobile experience
+
+      // Aliases for better routing
+      alias: {
+        '/.*/_sidebar.md': '/_sidebar.md',
+        '/.*/_navbar.md': '/_navbar.md',
+      },
 
       // Search configuration
       search: {
@@ -89,8 +125,41 @@
         crossChapterText: true,
       },
 
+      // Tab support for better content organization
+      tabs: {
+        persist: true,
+        sync: true,
+        theme: 'classic',
+        tabComments: true,
+        tabHeadings: true
+      },
+
       // Custom plugins
       plugins: [
+        // Table of Contents plugin for individual pages
+        function(hook, vm) {
+          hook.doneEach(function() {
+            // Add page-specific TOC if needed
+            const tocElements = document.querySelectorAll('h2, h3');
+            if (tocElements.length > 3) {
+              // Only show TOC for pages with substantial content
+              let tocHtml = '<div class="page_toc"><h4>📋 Page Contents</h4><ul>';
+              tocElements.forEach(el => {
+                const level = el.tagName === 'H2' ? 'toc-h2' : 'toc-h3';
+                const id = el.id || el.textContent.toLowerCase().replace(/[^\w]+/g, '-');
+                el.id = id;
+                tocHtml += `<li class="${level}"><a href="#${id}">${el.textContent}</a></li>`;
+              });
+              tocHtml += '</ul></div>';
+
+              // Add TOC to page (can be toggled off per page)
+              if (!document.querySelector('.no-toc')) {
+                document.querySelector('.content').insertAdjacentHTML('afterbegin', tocHtml);
+              }
+            }
+          });
+        },
+
         // Edit on GitHub link
         function(hook, vm) {
           hook.beforeEach(function (html) {
@@ -125,6 +194,9 @@
 
   <!-- Zoom image plugin -->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+
+  <!-- Tabs plugin for better content organization -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
 
   <!-- Syntax highlighting -->
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>

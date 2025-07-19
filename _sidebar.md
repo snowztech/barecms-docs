@@ -4,26 +4,28 @@
 
 - **🚀 Getting Started**
   - [📦 Quick Start](getting-started.md)
-  - [🐳 Docker Setup](getting-started.md#installation)
+  - [🔌 API Overview](api.md#public-data-access)
 
 ---
 
 - **🐳 Deployment**
   - [🔧 Self-Hosting](self-hosting.md)
-  - [🌐 Domain & HTTPS](self-hosting.md#mapping-your-domain--enabling-https)
+  - [🌐 Production Setup](self-hosting.md#mapping-your-domain--enabling-https)
 
 ---
 
 - **📖 API Reference**
-  - [🔌 Complete API](api.md)
   - [🌐 Public Endpoints](api.md#public-data-access)
   - [🔐 Authentication](api.md#authentication-endpoints)
+  - [🏢 Sites Management](api.md#sites-management)
+  - [📚 Collections](api.md#collections-management)
+  - [📝 Entries](api.md#entries-management)
 
 ---
 
 - **⚙️ Development**
   - [🤝 Contributing](development.md)
-  - [🛠️ Development Setup](development.md#development-environment)
+  - [🛠️ Local Setup](development.md#development-environment)
 
 ---
 
@@ -32,5 +34,3 @@
   - [🐛 Report Issues](https://github.com/snowztech/barecms/issues)
   - [💬 Discussions](https://github.com/snowztech/barecms/discussions)
   - [❤️ Sponsor Project](https://github.com/sponsors/lucasnevespereira)
-
----
