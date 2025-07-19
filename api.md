@@ -1,90 +1,22 @@
-# 🧪 API Reference
+# 📖 API Reference
 
-<!-- docsify-tabs:start -->
+BareCMS provides a RESTful API for content management and public data access. All authenticated endpoints require a JWT token in the Authorization header.
 
-#### ** Public API **
+**Base URL:** `http://localhost:8080`
+
+---
 
 ## 🌐 Public Data Access
+
+The core of headless usage: manage content through the admin interface, then access all site data publicly via this single endpoint.
+
+### Get Site Data
 
 **`GET /:siteSlug/data`** - Get all site data publicly (no authentication required)
 
 **Example:** `GET /my-blog/data`
 
 **Response:**
-
-```json
-{
-  "site": {
-    "id": 1,
-    "name": "My Blog",
-    "slug": "my-blog",
-    "description": "A simple blog site"
-  },
-  "collections": [
-    {
-      "id": 1,
-      "name": "Posts",
-      "slug": "posts",
-      "description": "Blog posts collection",
-      "entries": [
-        {
-          "id": 1,
-          "title": "Welcome to BareCMS",
-          "content": "This is my first blog post...",
-          "slug": "welcome-to-barecms",
-          "created_at": "2024-01-15T10:30:00Z"
-        }
-      ]
-    }
-  ]
-}
-```
-
-_This is the core of headless usage: manage content through the admin interface, then access all site data publicly via this single endpoint._
-
----
-
-## Overview
-
-BareCMS provides a RESTful API for content management and public data access. All authenticated endpoints require a JWT token in the Authorization header.
-
-## Base URL
-
-```
-http://localhost:8080
-```
-
-## Authentication
-
-Include the JWT token in the Authorization header for all authenticated endpoints:
-
-```
-Authorization: Bearer <your-jwt-token>
-```
-
----
-
-## 🌐 Complete Public Endpoints
-
-### Get Site Data
-
-Retrieve all site content publicly without authentication.
-
-**Endpoint:** `GET /:siteSlug/data`
-
-**Description:** Returns all collections and entries for a site using its slug. This is the primary endpoint for headless usage.
-
-**Parameters:**
-
-- `siteSlug` (path) - The unique slug of the site
-
-**Example Request:**
-
-```bash
-curl -X GET http://localhost:8080/my-blog/data
-```
-
-**Example Response:**
 
 ```json
 {
@@ -140,8 +72,6 @@ curl -X GET http://localhost:8080/my-blog/data
 ```
 
 ---
-
-#### ** Authentication **
 
 ## 🔐 Authentication Endpoints
 
@@ -220,8 +150,6 @@ Authorization: Bearer <your-jwt-token>
 ```
 
 ---
-
-#### ** Management **
 
 ## 🏢 Sites Management
 
@@ -546,7 +474,7 @@ Authorization: Bearer <your-jwt-token>
 
 ---
 
-## Error Responses
+## ⚠️ Error Responses
 
 All endpoints may return the following error responses:
 
@@ -592,7 +520,7 @@ All endpoints may return the following error responses:
 
 ---
 
-## Usage Examples
+## 💡 Usage Examples
 
 ### Headless CMS Workflow
 
