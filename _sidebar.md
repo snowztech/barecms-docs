@@ -1,10 +1,13 @@
 - [🏠 **Home**](/)
+  - [📋 Overview](README.md#overview)
+  - [🎬 Demo](README.md#demo)
+  - [✨ Features](README.md#features)
 
 ---
 
 - **🚀 Getting Started**
-  - [📦 Quick Start](getting-started.md)
-  - [🔌 API Overview](api.md#public-data-access)
+  - [💡 Example Usage](getting-started.md#example-usage)
+  - [📦 Quick Start](getting-started.md#quick-start)
 
 ---
 
@@ -29,7 +32,12 @@
 
 ---
 
-- **🔗 Resources**
+- **💬 Community**
+  - [💬 Community & Support](community.md)
+
+---
+
+- **🔗 Quick Links**
   - [⭐ GitHub Repository](https://github.com/snowztech/barecms)
   - [🐛 Report Issues](https://github.com/snowztech/barecms/issues)
   - [💬 Discussions](https://github.com/snowztech/barecms/discussions)

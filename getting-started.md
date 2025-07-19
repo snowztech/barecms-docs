@@ -1,30 +1,84 @@
-# 🚀 Quick Start
+# 🚀 Getting Started
 
-Get up and running with BareCMS in minutes.
+Get up and running with BareCMS in minutes. This guide covers everything from basic usage to your first deployment.
 
-## Prerequisites
+---
+
+## 💡 Example Usage
+
+The key endpoint for headless usage:
+
+```http
+GET /:siteSlug/data
+```
+
+This returns all content for a site without requiring authentication, making it perfect for frontend applications.
+
+**Example usage:**
+
+```javascript
+// Fetch public site data
+const response = await fetch("https://your-cms.com/my-site/data");
+const siteData = await response.json();
+
+// Access collections and entries
+const posts = siteData.collections.posts;
+const pages = siteData.collections.pages;
+```
+
+**Response structure:**
+
+```json
+{
+  "site": {
+    "id": 1,
+    "name": "My Blog",
+    "slug": "my-blog"
+  },
+  "collections": [
+    {
+      "id": 1,
+      "name": "Posts",
+      "slug": "posts",
+      "entries": [
+        {
+          "id": 1,
+          "title": "Welcome to BareCMS",
+          "content": "...",
+          "slug": "welcome"
+        }
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## 📦 Quick Start
+
+### Prerequisites
 
 **For Quick Deployment:**
 
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
-- [Make](https://www.gnu.org/software/make/) (optional, for simplified commands)
 
 **For Local Development:**
 
 - [Node.js](https://nodejs.org/) (v18+ recommended)
 - [Go](https://golang.org/) (v1.21+ recommended)
 
-## Installation
+### Installation
 
-### 1. Clone the Repository
+#### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/snowztech/barecms.git
 cd barecms
 ```
 
-### 2. Set Up Environment Variables
+#### 2. Set Up Environment Variables
 
 ```bash
 cp .env.example .env
@@ -37,17 +91,17 @@ Edit `.env` and update the `JWT_SECRET` with a strong, random string:
 openssl rand -base64 32
 ```
 
-### 3. Start the Application
+#### 3. Start the Application
 
 ```bash
 make up
 ```
 
-### 4. Access BareCMS
+#### 4. Access BareCMS
 
 Open your browser and navigate to [http://localhost:8080](http://localhost:8080)
 
-## Development Commands
+### Development Commands
 
 The project includes a Makefile with these commands:
 
@@ -59,11 +113,11 @@ make logs     # Show container logs
 make help     # Show all available commands
 ```
 
-## First Steps
+### First Steps
 
 Once BareCMS is running:
 
-### 1. Register a User
+#### 1. Register a User
 
 ```bash
 curl -X POST http://localhost:8080/api/auth/register \
@@ -71,7 +125,7 @@ curl -X POST http://localhost:8080/api/auth/register \
   -d '{"email": "admin@example.com", "password": "password123"}'
 ```
 
-### 2. Login to Get Token
+#### 2. Login to Get Token
 
 ```bash
 curl -X POST http://localhost:8080/api/auth/login \
@@ -81,7 +135,7 @@ curl -X POST http://localhost:8080/api/auth/login \
 
 Save the returned JWT token for authenticated requests.
 
-### 3. Create Your First Site
+#### 3. Create Your First Site
 
 ```bash
 curl -X POST http://localhost:8080/api/sites \
@@ -90,31 +144,32 @@ curl -X POST http://localhost:8080/api/sites \
   -d '{"name": "My Site", "slug": "my-site", "description": "My first site"}'
 ```
 
-### 4. Access Your Data Publicly
+#### 4. Access Your Data Publicly
 
 ```bash
 # Get all site data (no authentication needed)
 curl -X GET http://localhost:8080/my-site/data
 ```
 
-## Troubleshooting
+### Troubleshooting
 
-### Check Container Status
+#### Check Container Status
 
 ```bash
 make logs
 ```
 
-### Restart Services
+#### Restart Services
 
 ```bash
 make clean
 make up
 ```
 
+---
+
 ## Next Steps
 
-- [**Getting Started**](getting-started) - Get started
 - [**API Reference**](api.md) - Learn about all available endpoints
 - [**Self-Hosting**](self-hosting.md) - Deploy to production
 - [**Development**](development.md) - Contributing to the project

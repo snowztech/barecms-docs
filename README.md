@@ -23,6 +23,19 @@
 
 ---
 
+## 📋 Overview
+
+BareCMS is a lightweight, open-source headless CMS built with bare minimalism in mind. It provides essential content management features without the bloat, making it perfect for developers who need a simple, fast, and reliable solution for managing structured content.
+
+**Key Principles:**
+
+- **🎯 Minimal by Design**: Only the essential features you actually need
+- **⚡ Performance First**: Built for speed with Go and optimized React frontend
+- **🔧 Developer Friendly**: RESTful API and straightforward deployment
+- **🌐 Truly Headless**: Complete separation between content management and presentation
+
+---
+
 ## 🎬 Demo
 
 _See BareCMS in action - create sites, manage collections, and publish content with ease._
@@ -42,55 +55,3 @@ Try it yourself by following the [Quick Start Guide](getting-started.md)
 - **🚀 Production Ready**: Built with scalability and reliability in mind
 
 ---
-
-## 🌐 Public Data Access
-
-The key endpoint for headless usage:
-
-```http
-GET /:siteSlug/data
-```
-
-This returns all content for a site without requiring authentication, making it perfect for frontend applications.
-
-**Example usage:**
-
-```javascript
-// Fetch public site data
-const response = await fetch("https://your-cms.com/my-site/data");
-const siteData = await response.json();
-
-// Access collections and entries
-const posts = siteData.collections.posts;
-const pages = siteData.collections.pages;
-```
-
----
-
-## 🗺️ Roadmap
-
-### 🔄 Current Focus
-
-- [ ] Enhanced documentation
-- [ ] Improve auth flow
-- [ ] Content import/export
-
-_Keep it simple. [Suggest features](https://github.com/snowztech/barecms/issues) that align with our minimal philosophy._
-
----
-
-## 💬 Community & Support
-
-- **🐛 Found a bug?** [Report it here](https://github.com/snowztech/barecms/issues)
-- **💡 Have an idea?** [Start a discussion](https://github.com/snowztech/barecms/discussions)
-- **❤️ Love BareCMS?** [Sponsor the project](https://github.com/sponsors/lucasnevespereira)
-
----
-
-<div align="center">
-
-**Built with ❤️ by [SnowzTech](https://github.com/snowztech)**
-
-_Simple, lightweight, and built for developers._
-
-</div>
