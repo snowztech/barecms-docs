@@ -1,11 +1,19 @@
-# Getting Started
+# 🚀 Quick Start
 
-This guide will help you set up BareCMS locally for development.
+Get up and running with BareCMS in minutes.
 
 ## Prerequisites
 
+**For Quick Deployment:**
+
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
+- [Make](https://www.gnu.org/software/make/) (optional, for simplified commands)
+
+**For Local Development:**
+
+- [Node.js](https://nodejs.org/) (v18+ recommended)
+- [Go](https://golang.org/) (v1.21+ recommended)
 
 ## Installation
 
@@ -16,46 +24,39 @@ git clone https://github.com/snowztech/barecms.git
 cd barecms
 ```
 
-### 2. Environment Setup
-
-Create a `.env` file from the example:
+### 2. Set Up Environment Variables
 
 ```bash
 cp .env.example .env
 ```
 
-Edit the `.env` file with your configuration. The key variables include:
+Edit `.env` and update the `JWT_SECRET` with a strong, random string:
 
-- `JWT_SECRET` - JWT secret key (generate with `openssl rand -base64 32`)
-- `POSTGRES_USER` - Database username
-- `POSTGRES_PASSWORD` - Database password
-- `POSTGRES_DB` - Database name
-- `PORT` - Application port (default: 8080)
+```bash
+# Generate a secure JWT secret
+openssl rand -base64 32
+```
 
-### 3. Start BareCMS
-
-Start the development environment:
+### 3. Start the Application
 
 ```bash
 make up
 ```
 
-This will:
+### 4. Access BareCMS
 
-- Start PostgreSQL database with health checks
-- Build and start the BareCMS application
-- Make the application available at `http://localhost:8080`
+Open your browser and navigate to [http://localhost:8080](http://localhost:8080)
 
-## Available Commands
+## Development Commands
 
 The project includes a Makefile with these commands:
 
 ```bash
-make up       # Start the development environment
+make up       # Start development environment
 make ui       # Build UI (frontend)
 make clean    # Stop and cleanup containers
 make logs     # Show container logs
-make help     # Show help message
+make help     # Show all available commands
 ```
 
 ## First Steps
@@ -96,12 +97,6 @@ curl -X POST http://localhost:8080/api/sites \
 curl -X GET http://localhost:8080/my-site/data
 ```
 
-## Next Steps
-
-- [**API Reference**](api.md) - Learn about all available endpoints
-- [**Self-Hosting**](self-hosting.md) - Deploy to production
-- [**Development**](development.md) - Contributing to the project
-
 ## Troubleshooting
 
 ### Check Container Status
@@ -116,3 +111,9 @@ make logs
 make clean
 make up
 ```
+
+## Next Steps
+
+- [**API Reference**](api.md) - Learn about all available endpoints
+- [**Self-Hosting**](self-hosting.md) - Deploy to production
+- [**Development**](development.md) - Contributing to the project

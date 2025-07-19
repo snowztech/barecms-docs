@@ -1,4 +1,44 @@
-# BareCMS API Documentation
+# 🧪 API Reference
+
+## 🌐 Public Data Access
+
+**`GET /:siteSlug/data`** - Get all site data publicly (no authentication required)
+
+**Example:** `GET /my-blog/data`
+
+**Response:**
+
+```json
+{
+  "site": {
+    "id": 1,
+    "name": "My Blog",
+    "slug": "my-blog",
+    "description": "A simple blog site"
+  },
+  "collections": [
+    {
+      "id": 1,
+      "name": "Posts",
+      "slug": "posts",
+      "description": "Blog posts collection",
+      "entries": [
+        {
+          "id": 1,
+          "title": "Welcome to BareCMS",
+          "content": "This is my first blog post...",
+          "slug": "welcome-to-barecms",
+          "created_at": "2024-01-15T10:30:00Z"
+        }
+      ]
+    }
+  ]
+}
+```
+
+_This is the core of headless usage: manage content through the admin interface, then access all site data publicly via this single endpoint._
+
+---
 
 ## Overview
 
@@ -20,7 +60,7 @@ Authorization: Bearer <your-jwt-token>
 
 ---
 
-## 🌐 Public Endpoints
+## 🌐 Complete Public Endpoints
 
 ### Get Site Data
 

@@ -1,4 +1,4 @@
-# Self-Hosting BareCMS
+# 🐳 Deployment
 
 Deploy BareCMS on your own server using Docker. This guide provides two deployment options with step-by-step instructions.
 
