@@ -1,102 +1,76 @@
 # BareCMS Documentation
 
-<div align="center">
+BareCMS is a lightweight headless CMS built with Go and React.
 
-![BareCMS Logo](https://raw.githubusercontent.com/snowztech/barecms/main/assets/logo.svg ":size=120")
+## What is BareCMS?
 
-**Complete developer documentation for BareCMS**
+BareCMS provides a simple API-first content management system with:
 
-_A lightweight, open-source headless CMS designed with bare minimalism in mind_
+- **Sites** - Content containers for your projects
+- **Collections** - Groups of related content (e.g., "Posts", "Pages")
+- **Entries** - Individual pieces of content within collections
+- **Public API** - Access your content without authentication
 
-[![GitHub](https://img.shields.io/badge/GitHub-BareCMS-333333?style=flat&logo=github&logoColor=white)](https://github.com/snowztech/barecms)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/snowztech/barecms/blob/main/LICENSE)
+## Quick Overview
 
-[🚀 **Get Started**](getting-started/) • [🔌 **API Reference**](api/) • [🐳 **Deploy**](deployment/self-hosting.md)
+### Architecture
 
-</div>
+- **Backend**: Go with Gin framework
+- **Frontend**: React application
+- **Database**: PostgreSQL
+- **Container**: Docker support included
 
----
+### Core Concept
 
-## 🎯 What is BareCMS?
+1. **Manage content** through authenticated API endpoints
+2. **Access content publicly** via the site data endpoint
+3. **Build your frontend** using any technology to consume the public API
 
-BareCMS is a **headless CMS** built with bare minimalism in mind. Perfect for developers who want:
+### Public Data Access
 
-- **🎯 API-first approach** - Clean REST API for content management
-- **⚡ Fast & lightweight** - Built with Go and React
-- **🔧 Framework agnostic** - Use with any frontend
-- **🐳 Docker ready** - Deploy anywhere in minutes
-- **🔐 Secure by default** - JWT authentication
+The key endpoint for headless usage:
 
----
+```
+GET /:siteSlug/data
+```
 
-## 🚀 Quick Start
+This returns all content for a site without requiring authentication, making it perfect for frontend applications.
 
-### 1. Install BareCMS
+## Getting Started
+
+### 🚀 Local Development
+
+Quick setup for development:
 
 ```bash
 git clone https://github.com/snowztech/barecms.git
 cd barecms
 cp .env.example .env
-# Edit JWT_SECRET in .env
 make up
 ```
 
-### 2. Create Content
+Access at `http://localhost:8080`
+
+### 🐳 Production Deployment
+
+Deploy to your own server:
 
 ```bash
-# Register user
-curl -X POST http://localhost:8080/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"email":"admin@example.com","password":"password"}'
-
-# Create site
-curl -X POST http://localhost:8080/api/sites \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{"name":"My Blog","slug":"my-blog"}'
+# On your server
+git clone https://github.com/snowztech/barecms.git
+cd barecms
+cp .env.example .env
+# Edit .env with your settings
+docker compose up -d
 ```
 
-### 3. Access Data Publicly
+## Next Steps
 
-```bash
-# Get all site data (no auth needed!)
-curl http://localhost:8080/my-blog/data
-```
-
-🎉 **That's it!** You now have a working headless CMS.
+- [**🚀 Getting Started**](getting-started.md) - Set up BareCMS locally
+- [**🔌 API Reference**](api.md) - Complete API documentation
+- [**🐳 Self-Hosting**](self-hosting.md) - Deploy to production
+- [**⚙️ Development**](development.md) - Contributing to BareCMS
 
 ---
 
-## 📚 Documentation
-
-### 🏁 Getting Started
-
-- [Installation](getting-started/installation.md) - Get running in 5 minutes
-- [Quick Start](getting-started/quick-start.md) - Complete tutorial
-
-### 🔌 API Reference
-
-- [API Overview](api/README.md) - All endpoints and examples
-- [Public Data API](api/public-data.md) - Key headless endpoint
-
-### 🐳 Deployment
-
-- [Self-Hosting](deployment/self-hosting.md) - Deploy with Docker
-
-### 🛠️ Development
-
-- [Contributing](development/contributing.md) - How to contribute
-
----
-
-## 🆘 Need Help?
-
-- **🐛 Found a Bug?** [Report on GitHub Issues](https://github.com/snowztech/barecms/issues)
-- **💬 Have Questions?** [Ask in Discussions](https://github.com/snowztech/barecms/discussions)
-
----
-
-**Ready to build something amazing?** [**🚀 Get started now →**](getting-started/)
-
-<div style="text-align: center; margin: 2rem 0; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
-<strong>BareCMS</strong> • Built with ❤️ by <a href="https://github.com/snowztech" target="_blank">SnowzTech</a> • Keep it simple
-</div>
+_Simple, lightweight, and built for developers._
