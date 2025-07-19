@@ -7,7 +7,7 @@
 
 - **🚀 Getting Started**
   - [💡 Example Usage](getting-started/example-usage.md)
-  - [📦 Quick Start](getting-started.md/quick-start.md)
+  - [📦 Quick Start](getting-started/quick-start.md)
 
 ---
 
