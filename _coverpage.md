@@ -7,4 +7,4 @@
 [GitHub](https://github.com/snowztech/barecms)
 [Get Started](#welcome-to-barecms)
 
-<!-- ![color](#eeeeee) -->
+![color](#eeeeee)
