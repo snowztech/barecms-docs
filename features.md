@@ -44,7 +44,7 @@ BareCMS organizes content in a simple, intuitive hierarchy:
 
 All your content is accessible through a single, simple endpoint:
 
-- **`GET /:siteSlug/data`** - Retrieve all site content publicly (no authentication required)
+- **`GET /api/:siteSlug/data`** - Retrieve all site content publicly (no authentication required)
 
 This makes BareCMS perfect for:
 

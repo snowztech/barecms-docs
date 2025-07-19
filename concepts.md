@@ -66,7 +66,8 @@ GET  /api/entries             # Manage entries
 ### For Content Access (Public)
 
 ```
-GET  /:siteSlug/data          # Get all site content
+GET  /api/status                  # Check server status
+GET  /api/:siteSlug/data          # Get all site content
 ```
 
 The beauty is in the simplicity - one public endpoint gives you everything.
