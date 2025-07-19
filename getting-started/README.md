@@ -4,10 +4,10 @@ Welcome to BareCMS! This guide will help you get up and running quickly with you
 
 ## 📋 What You'll Learn
 
-- [Installation](#-installation) - Get BareCMS running locally
-- [Quick Start](#-quick-start) - Create your first site in 5 minutes
-- [First Site](#-first-site) - Build a complete example
-- [Configuration](#-configuration) - Customize your setup
+- [Installation](installation.md) - Get BareCMS running locally in 5 minutes
+- [Quick Start](quick-start.md) - Create your first site and content
+- [First Site](first-site.md) - Build a complete example project
+- [Configuration](configuration.md) - Customize your setup
 
 ---
 
@@ -173,7 +173,7 @@ Now that you have BareCMS running:
 
 - **[Create Your First Complete Site →](first-site.md)**
 - **[Learn the API →](../api/README.md)**
-- **[Deploy to Production →](../deployment/README.md)**
+- **[Deploy to Production →](../deployment/self-hosting.md)**
 - **[See Integration Examples →](../integration/frontend-examples.md)**
 
 ---

@@ -23,8 +23,8 @@
 - **🐳 Deployment**
 
   - [Overview](deployment/README.md)
-  - [Docker Compose](deployment/docker-compose.md)
   - [Self-Hosting](deployment/self-hosting.md)
+  - [Docker Compose](deployment/docker-compose.md)
   - [Production Setup](deployment/production.md)
   - [HTTPS & Domains](deployment/https.md)
   - [Database Management](deployment/database.md)
@@ -40,10 +40,10 @@
 - **🛠️ Development**
 
   - [Overview](development/README.md)
+  - [Contributing](development/contributing.md)
   - [Local Setup](development/local-setup.md)
   - [Architecture](development/architecture.md)
   - [Database Schema](development/database-schema.md)
-  - [Contributing](development/contributing.md)
   - [Testing](development/testing.md)
 
 - **📖 Guides**

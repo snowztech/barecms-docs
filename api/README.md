@@ -1,75 +1,60 @@
 # BareCMS API Reference
 
-Complete reference for the BareCMS REST API. Build powerful headless applications with confidence.
+Complete API documentation for BareCMS - your headless CMS built for developers.
 
-## 🚀 Quick Overview
+## 📋 Overview
 
-BareCMS provides a clean, RESTful API with two main access patterns:
+BareCMS provides a clean RESTful API for content management and public data access. The API is designed with simplicity and power in mind.
 
-- **🔐 Authenticated API** - Content management (create, update, delete)
-- **🌐 Public API** - Content consumption (read-only, no authentication)
+### Key Features
+
+- **🌐 Public Data API** - Access content without authentication
+- **🔐 JWT Authentication** - Secure content management
+- **📊 RESTful Design** - Predictable endpoints and responses
+- **⚡ Fast Performance** - Optimized for speed
+- **🔄 Real-time Updates** - Changes reflect immediately
+
+---
+
+## 🚀 Quick Start
 
 ### Base URL
 
 ```
-https://your-barecms-instance.com
+http://localhost:8080
 ```
 
 ### Authentication
 
-All management endpoints require JWT authentication:
+Include the JWT token in the Authorization header for authenticated endpoints:
 
-```bash
+```
 Authorization: Bearer <your-jwt-token>
 ```
 
----
+### Core Workflow
 
-## 📚 API Sections
-
-<table>
-<tr>
-<td width="50%">
-
-### 🔐 **Management API**
-
-_Requires Authentication_
-
-- **[Authentication](authentication.md)** - Login, register, tokens
-- **[Sites API](sites.md)** - Manage sites
-- **[Collections API](collections.md)** - Manage collections
-- **[Entries API](entries.md)** - Manage entries
-
-</td>
-<td width="50%">
-
-### 🌐 **Public API**
-
-_No Authentication Required_
-
-- **[Public Data API](public-data.md)** - Access all site content
-- **[Error Handling](errors.md)** - Error codes and responses
-
-</td>
-</tr>
-</table>
-
----
-
-## 🌟 Key Endpoint
-
-### Public Data Access
-
-```http
-GET /:siteSlug/data
+```mermaid
+graph LR
+    A[Register/Login] --> B[Get JWT Token]
+    B --> C[Create Site]
+    C --> D[Add Collections]
+    D --> E[Create Entries]
+    E --> F[Access via Public API]
 ```
 
-**This is the most important endpoint** - it provides all your site's content publicly for frontend consumption.
+---
 
-**Example:**
+## 🌐 Public Data Access (Key Endpoint)
+
+### Get All Site Data
+
+**The most important endpoint** - get all your site's content publicly.
+
+**`GET /:siteSlug/data`**
 
 ```bash
-curl https://your-barecms.com/my-blog/data
+curl http://localhost:8080/my-blog/data
 ```
 
 **Response:**
@@ -80,22 +65,21 @@ curl https://your-barecms.com/my-blog/data
     "id": 1,
     "name": "My Blog",
     "slug": "my-blog",
-    "description": "A simple blog"
+    "description": "A simple blog built with BareCMS"
   },
   "collections": [
     {
       "id": 1,
       "name": "Posts",
       "slug": "posts",
-      "description": "Blog posts",
+      "description": "Blog posts collection",
       "entries": [
         {
           "id": 1,
           "title": "Welcome to BareCMS",
-          "content": "This is my first post...",
+          "content": "This is my first blog post...",
           "slug": "welcome-to-barecms",
-          "created_at": "2024-01-15T10:30:00Z",
-          "updated_at": "2024-01-15T10:30:00Z"
+          "created_at": "2024-01-15T10:30:00Z"
         }
       ]
     }
@@ -103,217 +87,302 @@ curl https://your-barecms.com/my-blog/data
 }
 ```
 
----
-
-## 🔄 API Workflow
-
-```mermaid
-sequenceDiagram
-    participant Admin as Admin User
-    participant Auth as Auth API
-    participant Mgmt as Management API
-    participant Public as Public API
-    participant Frontend as Frontend App
-
-    Admin->>Auth: POST /api/auth/login
-    Auth-->>Admin: JWT Token
-
-    Admin->>Mgmt: POST /api/sites (with token)
-    Mgmt-->>Admin: Site created
-
-    Admin->>Mgmt: POST /api/collections (with token)
-    Mgmt-->>Admin: Collection created
-
-    Admin->>Mgmt: POST /api/entries (with token)
-    Mgmt-->>Admin: Entry created
-
-    Frontend->>Public: GET /:siteSlug/data (no token)
-    Public-->>Frontend: All site content
-```
-
-1. **Admin authenticates** and gets JWT token
-2. **Admin creates content** using management API with token
-3. **Frontend consumes content** using public API without token
+💡 **This endpoint powers your entire frontend** - no authentication required!
 
 ---
 
-## 📖 Quick Reference
+## 📚 API Sections
 
-### Authentication Endpoints
+### [Authentication](authentication.md)
+
+- **Register/Login** - User account management
+- **JWT Tokens** - Secure API access
+- **Password Reset** - Account recovery
+
+### [Sites API](sites.md)
+
+- **Create Sites** - Content containers
+- **Manage Sites** - Update and delete
+- **List Sites** - Get all your sites
+
+### [Collections API](collections.md)
+
+- **Create Collections** - Group related content
+- **Manage Collections** - Update structure
+- **Organize Content** - Logical grouping
+
+### [Entries API](entries.md)
+
+- **Create Entries** - Add content
+- **Update Entries** - Modify content
+- **Delete Entries** - Remove content
+
+### [Public Data API](public-data.md)
+
+- **Public Access** - Frontend integration
+- **Performance** - Caching strategies
+- **Usage Examples** - Real implementations
+
+### [Error Handling](errors.md)
+
+- **HTTP Status Codes** - Response meanings
+- **Error Formats** - Consistent responses
+- **Troubleshooting** - Common issues
+
+---
+
+## 🔧 API Overview
+
+### Complete Endpoint List
+
+#### **Authentication**
 
 ```bash
 POST /api/auth/register    # Register new user
 POST /api/auth/login       # Login user
-POST /api/auth/logout      # Logout user
+POST /api/auth/refresh     # Refresh token
+GET  /api/auth/profile     # Get user profile
+PUT  /api/auth/profile     # Update profile
 ```
 
-### Sites Management
+#### **Sites Management**
 
 ```bash
 GET    /api/sites          # List all sites
-POST   /api/sites          # Create site
+POST   /api/sites          # Create new site
 GET    /api/sites/:id      # Get site details
 PUT    /api/sites/:id      # Update site
 DELETE /api/sites/:id      # Delete site
 ```
 
-### Collections Management
+#### **Collections Management**
 
 ```bash
-GET    /api/sites/:siteId/collections    # List site collections
-POST   /api/sites/:siteId/collections    # Create collection
-GET    /api/collections/:id              # Get collection details
-PUT    /api/collections/:id              # Update collection
-DELETE /api/collections/:id              # Delete collection
+GET    /api/sites/:siteId/collections     # List collections
+POST   /api/sites/:siteId/collections     # Create collection
+GET    /api/collections/:id               # Get collection
+PUT    /api/collections/:id               # Update collection
+DELETE /api/collections/:id               # Delete collection
 ```
 
-### Entries Management
+#### **Entries Management**
 
 ```bash
-GET    /api/collections/:collectionId/entries    # List collection entries
-POST   /api/collections/:collectionId/entries    # Create entry
-GET    /api/entries/:id                          # Get entry details
-PUT    /api/entries/:id                          # Update entry
-DELETE /api/entries/:id                          # Delete entry
+GET    /api/collections/:collectionId/entries  # List entries
+POST   /api/collections/:collectionId/entries  # Create entry
+GET    /api/entries/:id                         # Get entry
+PUT    /api/entries/:id                         # Update entry
+DELETE /api/entries/:id                         # Delete entry
 ```
 
-### Public Data Access
+#### **Public Access**
 
 ```bash
-GET /:siteSlug/data        # Get all site data publicly
+GET /:siteSlug/data        # Get all site data (PUBLIC)
+GET /api/health            # Health check
 ```
 
 ---
 
-## 🎯 Common Use Cases
+## 📝 Request/Response Format
 
-### Blog Site
+### Request Headers
 
 ```bash
-# 1. Create blog site
-POST /api/sites {"name": "My Blog", "slug": "blog"}
+Content-Type: application/json
+Authorization: Bearer <jwt-token>  # For authenticated endpoints
+```
 
-# 2. Add posts collection
-POST /api/sites/1/collections {"name": "Posts", "slug": "posts"}
+### Response Format
 
-# 3. Add blog post
-POST /api/collections/1/entries {
-  "title": "Hello World",
-  "content": "My first post",
-  "slug": "hello-world"
+**Success Response:**
+
+```json
+{
+  "id": 1,
+  "name": "Resource name",
+  "created_at": "2024-01-15T10:30:00Z",
+  "updated_at": "2024-01-15T10:30:00Z"
 }
-
-# 4. Access from frontend
-GET /blog/data
 ```
 
-### E-commerce Site
+**Error Response:**
 
-```bash
-# 1. Create store site
-POST /api/sites {"name": "My Store", "slug": "store"}
-
-# 2. Add products collection
-POST /api/sites/1/collections {"name": "Products", "slug": "products"}
-
-# 3. Add pages collection
-POST /api/sites/1/collections {"name": "Pages", "slug": "pages"}
-
-# 4. Access from frontend
-GET /store/data
-```
-
-### Portfolio Site
-
-```bash
-# 1. Create portfolio site
-POST /api/sites {"name": "Portfolio", "slug": "portfolio"}
-
-# 2. Add projects collection
-POST /api/sites/1/collections {"name": "Projects", "slug": "projects"}
-
-# 3. Add testimonials collection
-POST /api/sites/1/collections {"name": "Testimonials", "slug": "testimonials"}
-
-# 4. Access from frontend
-GET /portfolio/data
+```json
+{
+  "error": "Resource not found",
+  "code": "NOT_FOUND",
+  "message": "The requested resource could not be found",
+  "details": {
+    "resource": "site",
+    "id": 123
+  }
+}
 ```
 
 ---
 
-## ⚡ Best Practices
+## 🎯 Common Patterns
 
-### 1. Use Descriptive Slugs
-
-```bash
-# Good
-{"slug": "about-us"}
-{"slug": "contact-page"}
-{"slug": "product-launch-2024"}
-
-# Avoid
-{"slug": "page1"}
-{"slug": "item"}
-{"slug": "content"}
-```
-
-### 2. Organize with Collections
+### Creating a Complete Site
 
 ```bash
-# Blog structure
-- Posts collection
-- Pages collection
-- Authors collection
+# 1. Register/Login
+curl -X POST http://localhost:8080/api/auth/register \
+  -d '{"email":"user@example.com","password":"password"}'
 
-# E-commerce structure
-- Products collection
-- Categories collection
-- Orders collection
+# 2. Create Site
+curl -X POST http://localhost:8080/api/sites \
+  -H "Authorization: Bearer TOKEN" \
+  -d '{"name":"My Blog","slug":"my-blog"}'
+
+# 3. Add Collection
+curl -X POST http://localhost:8080/api/sites/1/collections \
+  -H "Authorization: Bearer TOKEN" \
+  -d '{"name":"Posts","slug":"posts"}'
+
+# 4. Create Entry
+curl -X POST http://localhost:8080/api/collections/1/entries \
+  -H "Authorization: Bearer TOKEN" \
+  -d '{"title":"Hello World","content":"My first post"}'
+
+# 5. Access Publicly
+curl http://localhost:8080/my-blog/data
 ```
 
-### 3. Plan Your Content Structure
-
-```bash
-# Think about your frontend needs
-GET /my-site/data
-# Should return everything your frontend needs
-```
-
-### 4. Handle Errors Gracefully
+### Frontend Integration
 
 ```javascript
-try {
-  const response = await fetch("/my-site/data");
-  if (!response.ok) {
-    throw new Error("Failed to fetch data");
+// Fetch all site data
+const response = await fetch("http://localhost:8080/my-blog/data");
+const { site, collections } = await response.json();
+
+// Get specific collection
+const posts = collections.find((c) => c.slug === "posts");
+
+// Render content
+posts.entries.forEach((post) => {
+  console.log(post.title, post.content);
+});
+```
+
+---
+
+## ⚡ Performance & Caching
+
+### Response Times
+
+- **Public Data API**: ~50ms average
+- **Authenticated endpoints**: ~100ms average
+- **Database operations**: Optimized with indexes
+
+### Caching Strategy
+
+- **Public data**: Cached for 1 hour
+- **Static content**: Browser cache recommended
+- **API responses**: ETag support for conditional requests
+
+### Rate Limiting
+
+- **Authenticated users**: 1000 requests/hour
+- **Public endpoints**: 100 requests/minute per IP
+- **Burst allowance**: 10 requests/second
+
+---
+
+## 🔐 Security
+
+### Authentication
+
+- **JWT tokens** with secure expiration
+- **bcrypt** password hashing
+- **Rate limiting** on all endpoints
+
+### Authorization
+
+- **User-based access** to sites and content
+- **Public endpoints** are read-only
+- **CORS** configured for your domains
+
+### Best Practices
+
+- Store tokens securely (not in localStorage)
+- Use HTTPS in production
+- Implement proper CORS headers
+- Monitor for unusual activity
+
+---
+
+## 🧪 Testing & Development
+
+### API Testing Tools
+
+**Using curl:**
+
+```bash
+# Set base URL and token
+BASE_URL="http://localhost:8080"
+TOKEN="your-jwt-token"
+
+# Test authenticated endpoint
+curl -H "Authorization: Bearer $TOKEN" $BASE_URL/api/sites
+```
+
+**Using Postman:**
+
+- Import the BareCMS collection
+- Set environment variables for base URL and token
+- Test all endpoints interactively
+
+**Using JavaScript:**
+
+```javascript
+// API client helper
+class BareCMSClient {
+  constructor(baseURL, token = null) {
+    this.baseURL = baseURL;
+    this.token = token;
   }
-  const data = await response.json();
-  // Use data...
-} catch (error) {
-  console.error("Error:", error);
-  // Handle error...
+
+  async request(endpoint, options = {}) {
+    const url = `${this.baseURL}${endpoint}`;
+    const headers = {
+      "Content-Type": "application/json",
+      ...(this.token && { Authorization: `Bearer ${this.token}` }),
+      ...options.headers,
+    };
+
+    const response = await fetch(url, { ...options, headers });
+    return response.json();
+  }
+
+  async getSiteData(slug) {
+    return this.request(`/${slug}/data`);
+  }
 }
 ```
 
 ---
 
-## 🔍 Need More Details?
+## 🆘 Need Help?
 
-- **[Authentication Guide →](authentication.md)** - JWT tokens, login/logout
-- **[Sites API →](sites.md)** - Complete sites endpoint reference
-- **[Collections API →](collections.md)** - Complete collections endpoint reference
-- **[Entries API →](entries.md)** - Complete entries endpoint reference
-- **[Public Data API →](public-data.md)** - Public consumption patterns
-- **[Error Handling →](errors.md)** - Error codes and troubleshooting
+### Quick Links
 
----
+- **[Authentication Guide →](authentication.md)** - Get started with tokens
+- **[Public Data API →](public-data.md)** - Frontend integration
+- **[Error Reference →](errors.md)** - Troubleshoot issues
+- **[Frontend Examples →](../integration/frontend-examples.md)** - Real implementations
 
-## 🆘 Getting Help
+### Support
 
-- **API not working?** Check [Error Handling](errors.md)
-- **Need examples?** See [Integration Examples](../integration/frontend-examples.md)
-- **Questions?** Ask in [GitHub Discussions](https://github.com/snowztech/barecms/discussions)
+- **GitHub Issues**: [Report bugs](https://github.com/snowztech/barecms/issues)
+- **Discussions**: [Ask questions](https://github.com/snowztech/barecms/discussions)
+- **Documentation**: [Improve docs](https://github.com/snowztech/barecms-docs)
 
 ---
 
-_Build amazing headless applications with BareCMS! 🚀_
+**Ready to integrate BareCMS into your project?** [**🚀 See integration examples →**](../integration/frontend-examples.md)
+
+---
+
+_The API is your gateway to headless content management. Build anything! 🎯_
