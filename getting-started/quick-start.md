@@ -1,16 +1,15 @@
 # Quick Start Tutorial
 
-This tutorial will guide you through creating your first site, collections, and entries with BareCMS in just 15 minutes.
+Create your first site with BareCMS in 15 minutes.
 
 ## 🎯 What You'll Build
 
 By the end of this tutorial, you'll have:
 
 - ✅ A running BareCMS instance
-- ✅ A "My Blog" site with "Posts" collection
-- ✅ Sample blog posts
+- ✅ A "My Blog" site with posts
+- ✅ Sample blog content
 - ✅ Public API access to your content
-- ✅ Knowledge to integrate with any frontend
 
 ---
 
@@ -18,7 +17,7 @@ By the end of this tutorial, you'll have:
 
 - BareCMS installed and running ([Installation Guide](installation.md))
 - Basic understanding of APIs and JSON
-- A tool to make HTTP requests (curl, Postman, or browser)
+- A tool to make HTTP requests (curl or similar)
 
 ---
 
@@ -39,16 +38,7 @@ curl http://localhost:8080/api/health
 
 ## 👤 Step 2: Create Your Admin Account
 
-### Via Web Interface (Recommended)
-
-1. Open [http://localhost:8080](http://localhost:8080)
-2. Click "Register"
-3. Fill in your details:
-   - **Email**: `admin@example.com`
-   - **Password**: `secure_password123`
-4. Click "Register"
-
-### Via API
+Register your first admin account:
 
 ```bash
 curl -X POST http://localhost:8080/api/auth/register \
@@ -93,21 +83,21 @@ curl -X POST http://localhost:8080/api/sites \
 
 ```json
 {
-  "id": 1,
-  "name": "My Blog",
-  "slug": "my-blog",
-  "description": "A simple blog built with BareCMS",
-  "created_at": "2024-01-15T10:30:00Z"
+  "site": {
+    "id": 1,
+    "name": "My Blog",
+    "slug": "my-blog",
+    "description": "A simple blog built with BareCMS",
+    "created_at": "2024-01-15T10:30:00Z"
+  }
 }
 ```
 
-✅ **Success!** Your site is created with slug `my-blog`.
-
 ---
 
-## 📚 Step 4: Add a Collection
+## 📚 Step 4: Create a Collection
 
-Collections group related content. Let's create a "Posts" collection:
+Collections group similar content. Let's create a "Posts" collection:
 
 ```bash
 curl -X POST http://localhost:8080/api/sites/1/collections \
@@ -124,29 +114,31 @@ curl -X POST http://localhost:8080/api/sites/1/collections \
 
 ```json
 {
-  "id": 1,
-  "name": "Posts",
-  "slug": "posts",
-  "description": "Blog posts collection",
-  "site_id": 1,
-  "created_at": "2024-01-15T10:35:00Z"
+  "collection": {
+    "id": 1,
+    "name": "Posts",
+    "slug": "posts",
+    "description": "Blog posts collection",
+    "site_id": 1,
+    "created_at": "2024-01-15T10:35:00Z"
+  }
 }
 ```
 
 ---
 
-## ✍️ Step 5: Create Your First Entry
+## 📝 Step 5: Add Your First Entry
 
-Let's add your first blog post:
+Now let's create your first blog post:
 
 ```bash
 curl -X POST http://localhost:8080/api/collections/1/entries \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "title": "Welcome to My Blog",
-    "content": "This is my first blog post using BareCMS! I can manage content through the API and display it on any frontend I choose.",
-    "slug": "welcome-to-my-blog"
+    "title": "Welcome to BareCMS",
+    "content": "This is my first blog post using BareCMS! It'\''s incredibly simple and powerful.",
+    "slug": "welcome-to-barecms"
   }'
 ```
 
@@ -154,48 +146,22 @@ curl -X POST http://localhost:8080/api/collections/1/entries \
 
 ```json
 {
-  "id": 1,
-  "title": "Welcome to My Blog",
-  "content": "This is my first blog post using BareCMS! I can manage content through the API and display it on any frontend I choose.",
-  "slug": "welcome-to-my-blog",
-  "collection_id": 1,
-  "created_at": "2024-01-15T10:40:00Z"
+  "entry": {
+    "id": 1,
+    "title": "Welcome to BareCMS",
+    "content": "This is my first blog post using BareCMS! It's incredibly simple and powerful.",
+    "slug": "welcome-to-barecms",
+    "collection_id": 1,
+    "created_at": "2024-01-15T10:40:00Z"
+  }
 }
 ```
 
 ---
 
-## 📝 Step 6: Add More Content
+## 🌐 Step 6: Access Your Data Publicly
 
-Let's add a few more posts to make it interesting:
-
-```bash
-# Second post
-curl -X POST http://localhost:8080/api/collections/1/entries \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "Why I Chose BareCMS",
-    "content": "BareCMS is incredibly simple yet powerful. The API-first approach means I can use any frontend framework I want, and the public data endpoint makes content consumption effortless.",
-    "slug": "why-i-chose-barecms"
-  }'
-
-# Third post
-curl -X POST http://localhost:8080/api/collections/1/entries \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "Getting Started with Headless CMS",
-    "content": "Headless CMS architecture separates content management from presentation. This gives developers ultimate flexibility in how they display content.",
-    "slug": "getting-started-headless-cms"
-  }'
-```
-
----
-
-## 🌐 Step 7: Access Your Content Publicly
-
-Here's the magic! Get all your site's content with a single API call - **no authentication required**:
+Now for the magic - access all your content with a single public API call:
 
 ```bash
 curl http://localhost:8080/my-blog/data
@@ -220,24 +186,10 @@ curl http://localhost:8080/my-blog/data
       "entries": [
         {
           "id": 1,
-          "title": "Welcome to My Blog",
-          "content": "This is my first blog post using BareCMS! I can manage content through the API and display it on any frontend I choose.",
-          "slug": "welcome-to-my-blog",
+          "title": "Welcome to BareCMS",
+          "content": "This is my first blog post using BareCMS! It's incredibly simple and powerful.",
+          "slug": "welcome-to-barecms",
           "created_at": "2024-01-15T10:40:00Z"
-        },
-        {
-          "id": 2,
-          "title": "Why I Chose BareCMS",
-          "content": "BareCMS is incredibly simple yet powerful. The API-first approach means I can use any frontend framework I want, and the public data endpoint makes content consumption effortless.",
-          "slug": "why-i-chose-barecms",
-          "created_at": "2024-01-15T10:42:00Z"
-        },
-        {
-          "id": 3,
-          "title": "Getting Started with Headless CMS",
-          "content": "Headless CMS architecture separates content management from presentation. This gives developers ultimate flexibility in how they display content.",
-          "slug": "getting-started-headless-cms",
-          "created_at": "2024-01-15T10:44:00Z"
         }
       ]
     }
@@ -245,186 +197,103 @@ curl http://localhost:8080/my-blog/data
 }
 ```
 
-🎉 **Congratulations!** You now have a fully functional headless CMS with public content access.
+🎉 **Congratulations!** You now have a working headless CMS with public API access.
 
 ---
 
-## 💻 Step 8: Use in Your Frontend
+## 💻 Step 7: Use in Your Frontend
 
-Here's how you'd consume this data in different frameworks:
+Here's how to consume this data in a simple HTML page:
 
-### JavaScript (Vanilla)
+```html
+<!doctype html>
+<html>
+  <head>
+    <title>My Blog</title>
+  </head>
+  <body>
+    <div id="blog"></div>
 
-```javascript
-// Fetch and display blog posts
-async function loadBlog() {
-  const response = await fetch("http://localhost:8080/my-blog/data");
-  const { site, collections } = await response.json();
+    <script>
+      fetch("http://localhost:8080/my-blog/data")
+        .then((response) => response.json())
+        .then((data) => {
+          const blogDiv = document.getElementById("blog");
 
-  const posts = collections.find((c) => c.slug === "posts").entries;
+          // Display site title
+          blogDiv.innerHTML = `<h1>${data.site.name}</h1>`;
 
-  posts.forEach((post) => {
-    console.log(`${post.title}: ${post.content}`);
-  });
-}
-
-loadBlog();
-```
-
-### React
-
-```jsx
-import { useState, useEffect } from "react";
-
-function Blog() {
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    fetch("http://localhost:8080/my-blog/data")
-      .then((res) => res.json())
-      .then(setData);
-  }, []);
-
-  if (!data) return <div>Loading...</div>;
-
-  const posts = data.collections.find((c) => c.slug === "posts").entries;
-
-  return (
-    <div>
-      <h1>{data.site.name}</h1>
-      <p>{data.site.description}</p>
-
-      {posts.map((post) => (
-        <article key={post.id}>
-          <h2>{post.title}</h2>
-          <p>{post.content}</p>
-          <small>{new Date(post.created_at).toLocaleDateString()}</small>
-        </article>
-      ))}
-    </div>
-  );
-}
-```
-
-### Vue.js
-
-```vue
-<template>
-  <div v-if="data">
-    <h1>{{ data.site.name }}</h1>
-    <p>{{ data.site.description }}</p>
-
-    <article v-for="post in posts" :key="post.id">
-      <h2>{{ post.title }}</h2>
-      <p>{{ post.content }}</p>
-      <small>{{ new Date(post.created_at).toLocaleDateString() }}</small>
-    </article>
-  </div>
-</template>
-
-<script>
-export default {
-  data() {
-    return {
-      data: null,
-    };
-  },
-
-  async mounted() {
-    const response = await fetch("http://localhost:8080/my-blog/data");
-    this.data = await response.json();
-  },
-
-  computed: {
-    posts() {
-      return (
-        this.data?.collections.find((c) => c.slug === "posts").entries || []
-      );
-    },
-  },
-};
-</script>
+          // Display posts
+          const posts = data.collections.find((c) => c.slug === "posts");
+          if (posts) {
+            posts.entries.forEach((post) => {
+              blogDiv.innerHTML += `
+                            <article>
+                                <h2>${post.title}</h2>
+                                <p>${post.content}</p>
+                                <small>Published: ${new Date(post.created_at).toLocaleDateString()}</small>
+                            </article>
+                        `;
+            });
+          }
+        });
+    </script>
+  </body>
+</html>
 ```
 
 ---
 
-## 🔄 Step 9: Explore More Operations
+## 🔄 Step 8: Add More Content
 
-### List All Sites
-
-```bash
-curl -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-  http://localhost:8080/api/sites
-```
-
-### Update an Entry
+Let's add another blog post:
 
 ```bash
-curl -X PUT http://localhost:8080/api/entries/1 \
+curl -X POST http://localhost:8080/api/collections/1/entries \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{
-    "title": "Welcome to My Blog - Updated!",
-    "content": "This is my updated first blog post using BareCMS!"
+    "title": "Getting Started with Headless CMS",
+    "content": "Headless CMS separates content from presentation, giving developers complete freedom in how they display content.",
+    "slug": "getting-started-headless-cms"
   }'
 ```
 
-### Delete an Entry
-
-```bash
-curl -X DELETE http://localhost:8080/api/entries/1 \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN"
-```
-
-### Add Another Collection
-
-```bash
-curl -X POST http://localhost:8080/api/sites/1/collections \
-  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Pages",
-    "slug": "pages",
-    "description": "Static pages"
-  }'
-```
+Now when you call the public API again, you'll see both posts!
 
 ---
 
 ## ✅ What You've Accomplished
 
-In just 15 minutes, you've:
+You've successfully:
 
 - ✅ **Set up BareCMS** with Docker
-- ✅ **Created an admin account** for content management
-- ✅ **Built a complete blog structure** (site → collection → entries)
-- ✅ **Added multiple blog posts** with rich content
-- ✅ **Accessed content publicly** via the data API
-- ✅ **Learned integration patterns** for popular frameworks
-- ✅ **Explored CRUD operations** for content management
+- ✅ **Created your first site** with authentication
+- ✅ **Organized content** with collections
+- ✅ **Added content** with entries
+- ✅ **Accessed data publicly** via REST API
+- ✅ **Built a simple frontend** to display content
 
 ---
 
 ## 🚀 Next Steps
 
-Now that you understand the basics:
+Now that you have the basics:
 
-1. **[Build a Complete Site →](first-site.md)** - Create a more complex example
-2. **[Learn the Full API →](../api/README.md)** - Explore all endpoints
-3. **[See Integration Examples →](../integration/frontend-examples.md)** - Real-world framework usage
-4. **[Deploy to Production →](../deployment/self-hosting.md)** - Make it live
-5. **[Explore Use Cases →](../guides/use-cases.md)** - Get inspired
+1. **[Learn the Complete API →](../api/README.md)** - Explore all endpoints
+2. **[Deploy to Production →](../deployment/self-hosting.md)** - Make it live
+3. **[Check Frontend Examples →](../integration/frontend-examples.md)** - See React, Vue examples
 
 ---
 
-## 💡 Pro Tips
+## 💡 Key Concepts
 
-- **Use the Web UI**: Visit [http://localhost:8080](http://localhost:8080) for a visual interface
-- **Bookmark the Public API**: `http://localhost:8080/{siteSlug}/data` is your main endpoint
-- **Plan Your Structure**: Design your sites and collections before adding entries
-- **Use Meaningful Slugs**: They become part of your URLs
-- **Test Everything**: The API is your source of truth
+- **Sites**: Containers for your projects
+- **Collections**: Groups of similar content (posts, pages, products)
+- **Entries**: Individual pieces of content
+- **Public API**: `GET /:siteSlug/data` - No auth needed!
+- **Admin API**: CRUD operations with JWT authentication
 
 ---
 
-_Ready to build something bigger? Let's create a complete site in the next tutorial! 🎯_
+_Ready to build something amazing? The API is your playground! 🎯_

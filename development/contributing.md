@@ -4,404 +4,96 @@ We welcome and appreciate contributions to BareCMS! Whether it's a bug fix, a ne
 
 Please take a moment to review this guide before making your first contribution.
 
-## 📋 Table of Contents
-
-- [Getting Started](#getting-started)
-- [Development Setup](#development-setup)
-- [How to Contribute](#how-to-contribute)
-- [Development Workflow](#development-workflow)
-- [Code Guidelines](#code-guidelines)
-- [Submitting Changes](#submitting-changes)
-- [Community Guidelines](#community-guidelines)
-
----
-
-## Getting Started
-
-### Ways to Contribute
-
-- 🐛 **Report bugs** - Help us find and fix issues
-- ✨ **Suggest features** - Share ideas for improvements
-- 📝 **Improve documentation** - Make guides clearer
-- 💻 **Write code** - Implement features and fixes
-- 🧪 **Write tests** - Improve code coverage
-- 🎨 **Improve UI/UX** - Enhance user experience
-
-### Before You Start
-
-- Check existing [issues](https://github.com/snowztech/barecms/issues) and [pull requests](https://github.com/snowztech/barecms/pulls)
-- Read our [Code of Conduct](https://github.com/snowztech/barecms/blob/main/CODE_OF_CONDUCT.md)
-- Join our [discussions](https://github.com/snowztech/barecms/discussions) for questions
-
----
-
-## Development Setup
-
-### Prerequisites
-
-- **Go 1.21+** - [Install Go](https://golang.org/doc/install)
-- **Node.js 18+** - [Install Node.js](https://nodejs.org/)
-- **Docker & Docker Compose** - [Install Docker](https://docs.docker.com/get-docker/)
-- **PostgreSQL** - For database (or use Docker)
-- **Git** - Version control
-
-### Local Setup
-
-```bash
-# 1. Fork and clone the repository
-git clone https://github.com/YOUR_USERNAME/barecms.git
-cd barecms
-
-# 2. Set up upstream remote
-git remote add upstream https://github.com/snowztech/barecms.git
-
-# 3. Install backend dependencies
-go mod tidy
-
-# 4. Install frontend dependencies
-cd ui
-npm install
-cd ..
-
-# 5. Set up environment
-cp .env.example .env
-# Edit .env with your settings
-
-# 6. Start development environment
-make dev
-```
-
-### Project Structure
-
-```
-barecms/
-├── cmd/                 # Application entry points
-├── internal/            # Private application code
-│   ├── handlers/        # HTTP handlers
-│   ├── middlewares/     # HTTP middlewares
-│   ├── models/          # Data models
-│   ├── services/        # Business logic
-│   └── storage/         # Database layer
-├── ui/                  # Frontend React app
-│   ├── src/
-│   └── public/
-├── configs/             # Configuration files
-├── docs/                # Documentation
-└── Makefile            # Development commands
-```
-
----
-
 ## How to Contribute
 
-### 1. Fork the Repository
+The general workflow for contributing involves forking the repository, making your changes, and submitting a Pull Request.
 
-- Go to the [BareCMS GitHub repository](https://github.com/snowztech/barecms)
-- Click the "Fork" button in the top right corner
-- This creates a copy under your GitHub account
+**1. Fork the Repository**
 
-### 2. Clone Your Fork
+First, you'll need to create your own copy of the BareCMS repository:
+
+- Go to the [BareCMS GitHub repository](https://github.com/snowztech/barecms).
+
+- Click the "Fork" button in the top right corner. This will create a copy of the repository under your GitHub account.
+
+**2. Clone Your Fork**
+
+Now, clone your forked repository to your local machine:
 
 ```bash
 git clone https://github.com/YOUR_GITHUB_USERNAME/barecms.git
 cd barecms
 ```
 
-### 3. Set Up the Upstream Remote
+**3. Set Up the Upstream Remote**
+
+To keep your local repository synchronized with the original BareCMS repository (the "upstream"), you need to add it as a remote:
 
 ```bash
 git remote add upstream https://github.com/snowztech/barecms.git
 git remote -v
-# You should see 'origin' pointing to your fork and 'upstream' pointing to the main repo
+# You should see 'origin' pointing to your fork and 'upstream' pointing to the main BareCMS repo.
 ```
 
-### 4. Create a New Branch
+**4. Create a New Branch**
 
-Choose a descriptive name for your branch:
+It's crucial to work on a new branch for each feature or bug fix. This keeps your changes isolated and makes merging easier. Choose a descriptive name for your branch (e.g., `feature/add-auth-middleware`, `fix/login-bug`).
 
 ```bash
 git checkout main
-git pull upstream main  # Ensure your local main is up-to-date
+git pull upstream main # Ensure your local main is up-to-date
 git checkout -b feature/your-feature-name
 ```
 
-**Branch Naming Conventions:**
+**5. Make Your Changes**
 
-- `feature/add-user-roles` - New features
-- `fix/login-redirect-bug` - Bug fixes
-- `docs/update-api-guide` - Documentation
-- `refactor/cleanup-handlers` - Code refactoring
-- `test/add-auth-tests` - Adding tests
+Implement your feature or fix the bug. Remember to:
 
----
+- Follow existing code style.
+- Update documentation if your changes affect how the project is used or configured.
 
-## Development Workflow
+**6. Rebase with Upstream (Keeping Your Branch Up-to-Date)**
 
-### Backend Development
-
-```bash
-# Run backend only
-go run cmd/main.go
-
-# Run with hot reload
-make dev-backend
-
-# Run tests
-make test
-
-# Check linting
-make lint
-```
-
-### Frontend Development
-
-```bash
-# Navigate to UI directory
-cd ui
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Run tests
-npm test
-```
-
-### Full Stack Development
-
-```bash
-# Start everything with Docker
-make up
-
-# Start development mode (with hot reload)
-make dev
-
-# View logs
-make logs
-
-# Clean up
-make clean
-```
-
----
-
-## Code Guidelines
-
-### Go Code Style
-
-- Follow standard Go conventions
-- Use `gofmt` to format code
-- Write meaningful variable and function names
-- Add comments for exported functions
-- Handle errors properly
-
-```go
-// Good
-func GetUserByID(id int) (*User, error) {
-    if id <= 0 {
-        return nil, fmt.Errorf("invalid user ID: %d", id)
-    }
-
-    user, err := db.FindUser(id)
-    if err != nil {
-        return nil, fmt.Errorf("failed to find user: %w", err)
-    }
-
-    return user, nil
-}
-```
-
-### React/TypeScript Style
-
-- Use TypeScript for type safety
-- Follow React hooks patterns
-- Use meaningful component names
-- Extract reusable logic into custom hooks
-- Write JSX with proper accessibility
-
-```tsx
-// Good
-interface UserProfileProps {
-  user: User;
-  onUpdate: (user: User) => void;
-}
-
-export function UserProfile({ user, onUpdate }: UserProfileProps) {
-  const [isEditing, setIsEditing] = useState(false);
-
-  const handleSave = useCallback(
-    (updatedUser: User) => {
-      onUpdate(updatedUser);
-      setIsEditing(false);
-    },
-    [onUpdate]
-  );
-
-  return (
-    <div className="user-profile">
-      <h2>{user.name}</h2>
-      {/* Component content */}
-    </div>
-  );
-}
-```
-
-### Database Guidelines
-
-- Use proper migrations for schema changes
-- Write efficient queries with proper indexes
-- Handle database errors gracefully
-- Use transactions for multi-step operations
-
----
-
-## Submitting Changes
-
-### 1. Keep Your Branch Updated
-
-Before committing, rebase with the latest upstream changes:
+Before committing and pushing, it's a good practice to rebase your branch with the latest changes from the upstream/main branch. This keeps your commit history clean and avoids unnecessary merge commits.
 
 ```bash
 git fetch upstream
 git rebase upstream/main
 ```
 
-**Resolve Conflicts:** If there are conflicts, Git will pause for resolution:
+- **Resolve Conflicts:** If there are any conflicts during the rebase, Git will pause and ask you to resolve them. After resolving, use `git add --all` and then `git rebase --continue`.
+
+- **Force Push (if you've already pushed):** If you've already pushed your branch to your fork before rebasing, you'll need to force push after rebasing: `git push --force-with-lease origin feature/your-feature-name`. Be cautious with `git push --force` as it can overwrite history. `git push --force-with-lease` is safer.
+
+**7. Commit Your Changes**
+
+Once your changes are complete and rebased, commit them with a clear and concise commit message.
 
 ```bash
-# Fix conflicts in your editor
-git add .
-git rebase --continue
+git add --all
+git commit -m "feat: Add a concise description of your feature or fix"
 ```
 
-### 2. Commit Your Changes
+- **Commit Message Guidelines:** Aim for clear, descriptive, and atomic commits. A good commit message explains what was changed and why. Consider using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) (e.g., `feat:`, `fix:`, `docs:`, `chore:`) for consistency.
 
-Write clear, descriptive commit messages:
+**8. Push to your Fork**
 
-```bash
-git add .
-git commit -m "feat: add user role management API"
-```
-
-**Commit Message Format:**
-
-- `feat:` - New features
-- `fix:` - Bug fixes
-- `docs:` - Documentation changes
-- `style:` - Code formatting (no functional changes)
-- `refactor:` - Code refactoring
-- `test:` - Adding or fixing tests
-- `chore:` - Maintenance tasks
-
-### 3. Push to Your Fork
+Push your new branch with your committed changes to your forked repository on GitHub:
 
 ```bash
 git push origin feature/your-feature-name
 ```
 
-**If you've rebased after pushing:**
+**9. Open a Pull Request (PR)**
 
-```bash
-git push --force-with-lease origin feature/your-feature-name
-```
+Finally, go to the original BareCMS GitHub repository. GitHub will usually detect your new branch and prompt you to open a Pull Request.
 
-### 4. Open a Pull Request
+**Title:** Provide a clear and descriptive title for your PR.
 
-1. Go to the original BareCMS repository
-2. GitHub will usually prompt you to open a PR
-3. Provide a clear title and description
-4. Reference any related issues (e.g., `Closes #123`)
-5. Be prepared for feedback and discussions
+**Description:** Explain the purpose of your changes, what problem they solve, and any relevant details. Reference any related issues (e.g., `Closes #123`).
+
+**Review:** Be prepared for feedback and discussions during the review process. Address comments and make further commits to your branch as needed.
 
 ---
 
-## Community Guidelines
-
-### Pull Request Guidelines
-
-- **Keep PRs focused** - One feature or fix per PR
-- **Write good descriptions** - Explain what and why
-- **Add tests** - For new features and bug fixes
-- **Update documentation** - If your changes affect usage
-- **Be responsive** - Address feedback promptly
-
-### Review Process
-
-1. **Automated checks** - CI/CD must pass
-2. **Code review** - Maintainers will review your code
-3. **Testing** - Verify functionality works as expected
-4. **Documentation** - Ensure docs are updated if needed
-5. **Merge** - Approved PRs will be merged
-
-### Getting Help
-
-- **GitHub Issues** - For bug reports and feature requests
-- **GitHub Discussions** - For questions and general discussion
-- **Documentation** - Check existing guides first
-- **Community** - Be respectful and helpful
-
----
-
-## Development Commands
-
-```bash
-# Development
-make dev          # Start development environment
-make dev-backend  # Start backend only
-make dev-frontend # Start frontend only
-
-# Testing
-make test         # Run all tests
-make test-backend # Run Go tests
-make test-frontend # Run React tests
-
-# Code Quality
-make lint         # Run linters
-make format       # Format code
-
-# Database
-make migrate      # Run database migrations
-make seed         # Seed database with sample data
-
-# Docker
-make up           # Start with Docker
-make down         # Stop Docker containers
-make clean        # Clean up everything
-
-# Building
-make build        # Build for production
-make ui           # Build frontend only
-
-# Utilities
-make logs         # View application logs
-make help         # Show all available commands
-```
-
----
-
-## Need Help?
-
-### Resources
-
-- **[API Documentation](../api/README.md)** - Complete API reference
-- **[Architecture Guide](architecture.md)** - Understanding the codebase
-- **[Local Setup Guide](local-setup.md)** - Detailed setup instructions
-- **[Testing Guide](testing.md)** - Writing and running tests
-
-### Community
-
-- **GitHub Issues**: [Report bugs or request features](https://github.com/snowztech/barecms/issues)
-- **GitHub Discussions**: [Ask questions and share ideas](https://github.com/snowztech/barecms/discussions)
-- **Pull Requests**: [Review existing contributions](https://github.com/snowztech/barecms/pulls)
-
----
-
-**Thank you for contributing to BareCMS!** 🎉
-
-Every contribution, no matter how small, helps make BareCMS better for everyone. We appreciate your time and effort in improving this project.
-
----
-
-_Happy coding! 🚀_
+Thank you for contributing to BareCMS!

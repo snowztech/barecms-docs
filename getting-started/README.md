@@ -4,10 +4,8 @@ Welcome to BareCMS! This guide will help you get up and running quickly with you
 
 ## 📋 What You'll Learn
 
-- [Installation](installation.md) - Get BareCMS running locally in 5 minutes
-- [Quick Start](quick-start.md) - Create your first site and content
-- [First Site](first-site.md) - Build a complete example project
-- [Configuration](configuration.md) - Customize your setup
+- [**Installation**](installation.md) - Get BareCMS running locally in 5 minutes
+- [**Quick Start**](quick-start.md) - Create your first site and content
 
 ---
 
@@ -16,7 +14,7 @@ Welcome to BareCMS! This guide will help you get up and running quickly with you
 ### Prerequisites
 
 - **Docker & Docker Compose** - [Install Docker](https://docs.docker.com/get-docker/)
-- **Basic terminal knowledge**
+- **Git** - [Install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - **5 minutes of your time**
 
 ### Quick Installation
@@ -39,7 +37,7 @@ make up
 
 ### Access Your CMS
 
-- **Admin Interface**: [http://localhost:8080](http://localhost:8080)
+- **Web Interface**: [http://localhost:8080](http://localhost:8080)
 - **API Base URL**: `http://localhost:8080/api`
 
 ---
@@ -48,7 +46,13 @@ make up
 
 ### 1. Create Your Account
 
-Navigate to [http://localhost:8080](http://localhost:8080) and register your first admin account.
+Register your first admin account:
+
+```bash
+curl -X POST http://localhost:8080/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@example.com","password":"secure_password"}'
+```
 
 ### 2. Create Your First Site
 
@@ -56,11 +60,7 @@ Navigate to [http://localhost:8080](http://localhost:8080) and register your fir
 curl -X POST http://localhost:8080/api/sites \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{
-    "name": "My Blog",
-    "slug": "my-blog",
-    "description": "My awesome blog"
-  }'
+  -d '{"name":"My Blog","slug":"my-blog","description":"My awesome blog"}'
 ```
 
 ### 3. Add a Collection
@@ -69,11 +69,7 @@ curl -X POST http://localhost:8080/api/sites \
 curl -X POST http://localhost:8080/api/sites/1/collections \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{
-    "name": "Posts",
-    "slug": "posts",
-    "description": "Blog posts"
-  }'
+  -d '{"name":"Posts","slug":"posts","description":"Blog posts"}'
 ```
 
 ### 4. Create Your First Entry
@@ -82,11 +78,7 @@ curl -X POST http://localhost:8080/api/sites/1/collections \
 curl -X POST http://localhost:8080/api/collections/1/entries \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{
-    "title": "Welcome to BareCMS",
-    "content": "This is my first blog post using BareCMS!",
-    "slug": "welcome-to-barecms"
-  }'
+  -d '{"title":"Welcome to BareCMS","content":"This is my first blog post using BareCMS!","slug":"welcome-to-barecms"}'
 ```
 
 ### 5. Access Your Data Publicly
@@ -149,29 +141,10 @@ The **Public Data API** (`GET /:siteSlug/data`) provides all your site's content
 
 ---
 
-## 🔧 Core Workflow
-
-```mermaid
-graph LR
-    A[Create Site] --> B[Add Collections]
-    B --> C[Create Entries]
-    C --> D[Access via Public API]
-    D --> E[Build Your Frontend]
-```
-
-1. **Create a Site** - Your content container
-2. **Add Collections** - Group related content
-3. **Create Entries** - Add your actual content
-4. **Access via Public API** - Fetch data for your frontend
-5. **Build Your Frontend** - Use any framework you like
-
----
-
-## 🌟 Next Steps
+## 🚀 Next Steps
 
 Now that you have BareCMS running:
 
-- **[Create Your First Complete Site →](first-site.md)**
 - **[Learn the API →](../api/README.md)**
 - **[Deploy to Production →](../deployment/self-hosting.md)**
 - **[See Integration Examples →](../integration/frontend-examples.md)**
@@ -180,9 +153,8 @@ Now that you have BareCMS running:
 
 ## 🆘 Need Help?
 
-- **Something not working?** Check [Troubleshooting](../guides/troubleshooting.md)
-- **Want to see examples?** Browse [Use Cases](../guides/use-cases.md)
-- **Have questions?** Ask in [GitHub Discussions](https://github.com/snowztech/barecms/discussions)
+- **GitHub Issues**: [Report bugs or request features](https://github.com/snowztech/barecms/issues)
+- **GitHub Discussions**: [Ask questions and share ideas](https://github.com/snowztech/barecms/discussions)
 
 ---
 

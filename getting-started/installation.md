@@ -1,19 +1,16 @@
 # Installation Guide
 
-This guide covers all the ways to install and run BareCMS, from local development to production deployment.
+Get BareCMS running locally in 5 minutes.
 
 ## 📋 Prerequisites
 
-Before installing BareCMS, ensure you have:
-
 - **Docker** - [Install Docker](https://docs.docker.com/get-docker/)
 - **Docker Compose** - [Install Docker Compose](https://docs.docker.com/compose/install/)
-- **Make** (optional) - For simplified commands
 - **Git** - [Install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
 ---
 
-## 🚀 Quick Installation (Recommended)
+## 🚀 Quick Installation
 
 ### 1. Clone the Repository
 
@@ -51,7 +48,7 @@ PORT=8080
 ### 3. Start BareCMS
 
 ```bash
-# Using Make (recommended)
+# Start the application
 make up
 
 # Or using Docker Compose directly
@@ -67,154 +64,22 @@ docker compose up -d
 
 ---
 
-## 📦 Installation Options
+## 🔧 Available Commands
 
-### Option 1: Docker Compose (Recommended)
-
-Best for: **Local development, testing, small production setups**
-
-```bash
-git clone https://github.com/snowztech/barecms.git
-cd barecms
-cp .env.example .env
-# Edit .env with your JWT_SECRET
-make up
-```
-
-**Pros:**
-
-- ✅ Everything included (app + database)
-- ✅ Zero configuration
-- ✅ Easy to update
-- ✅ Data persisted in volumes
-
-**Cons:**
-
-- ❌ Single server only
-- ❌ Not suitable for high-traffic sites
-
-### Option 2: Docker Only (External Database)
-
-Best for: **Production with managed database**
-
-```bash
-# Start with external PostgreSQL database
-docker run -d \
-  --name barecms \
-  -p 8080:8080 \
-  -e JWT_SECRET=your-super-secret-jwt-key \
-  -e DATABASE_URL=postgresql://user:pass@your-db-host:5432/barecms_db \
-  ghcr.io/snowztech/barecms:latest
-```
-
-**Pros:**
-
-- ✅ Use managed database services
-- ✅ Better for scaling
-- ✅ Separate database backups
-
-**Cons:**
-
-- ❌ Requires existing PostgreSQL
-- ❌ More configuration
-
-### Option 3: Development Setup
-
-Best for: **Contributing to BareCMS, custom modifications**
-
-**Prerequisites:**
-
-- [Go 1.21+](https://golang.org/doc/install)
-- [Node.js 18+](https://nodejs.org/)
-- [PostgreSQL](https://www.postgresql.org/download/)
-
-```bash
-# Clone and setup
-git clone https://github.com/snowztech/barecms.git
-cd barecms
-
-# Backend setup
-go mod tidy
-cp .env.example .env
-# Edit .env with database connection
-
-# Frontend setup
-cd ui
-npm install
-npm run build
-cd ..
-
-# Run development server
-make dev
-```
-
----
-
-## ⚙️ Environment Configuration
-
-### Required Variables
-
-```env
-# Security (REQUIRED)
-JWT_SECRET=your-super-secret-jwt-key-here
-
-# Database (Required for external database)
-DATABASE_URL=postgresql://user:password@host:port/database
-```
-
-### Optional Variables
-
-```env
-# Application
-PORT=8080                    # Server port (default: 8080)
-ENV=production              # Environment mode
-
-# Database (Docker Compose only)
-POSTGRES_USER=barecms_user
-POSTGRES_PASSWORD=secure_password
-POSTGRES_DB=barecms_db
-
-# Logging
-LOG_LEVEL=info              # debug, info, warn, error
-```
-
-### Generating JWT Secret
-
-```bash
-# Option 1: OpenSSL (recommended)
-openssl rand -base64 32
-
-# Option 2: Online generator
-# Visit: https://generate-secret.vercel.app/32
-
-# Option 3: Node.js
-node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
-```
-
----
-
-## 🔧 Development Commands
-
-BareCMS includes helpful Make commands for development:
+BareCMS includes these Make commands:
 
 ```bash
 # Start development environment
 make up
 
+# Build UI (frontend)
+make ui
+
 # View logs
 make logs
 
-# Stop all services
-make down
-
-# Clean up (removes containers and volumes)
+# Stop and cleanup containers
 make clean
-
-# Build frontend only
-make ui
-
-# Run tests
-make test
 
 # Show all available commands
 make help
@@ -234,46 +99,15 @@ docker compose logs -f
 # Stop services
 docker compose down
 
-# Update to latest version
-docker compose pull
-docker compose up -d
-
 # Build frontend
-cd ui && npm run build
+cd ui && npm install && npm run build
 ```
 
 ---
 
 ## 🗄️ Database Setup
 
-### Using Docker Compose (Default)
-
-Database is automatically configured. Data is persisted in Docker volumes.
-
-### Using External PostgreSQL
-
-1. **Create Database:**
-
-```sql
-CREATE DATABASE barecms_db;
-CREATE USER barecms_user WITH PASSWORD 'your_password';
-GRANT ALL PRIVILEGES ON DATABASE barecms_db TO barecms_user;
-```
-
-2. **Set DATABASE_URL:**
-
-```env
-DATABASE_URL=postgresql://barecms_user:your_password@localhost:5432/barecms_db
-```
-
-3. **Run Migrations:**
-
-```bash
-# Migrations run automatically on startup
-docker run --rm \
-  -e DATABASE_URL=your_database_url \
-  ghcr.io/snowztech/barecms:latest
-```
+Database is automatically configured with Docker Compose. Data is persisted in Docker volumes.
 
 ---
 
@@ -312,27 +146,10 @@ Visit [http://localhost:8080](http://localhost:8080) and you should see the Bare
 ### Updating BareCMS
 
 ```bash
-# Using Docker Compose
+# Pull latest changes
 git pull
 docker compose pull
 docker compose up -d
-
-# Using Docker only
-docker pull ghcr.io/snowztech/barecms:latest
-docker stop barecms
-docker rm barecms
-# Run your docker run command again
-```
-
-### Version Pinning
-
-For production, pin to specific versions:
-
-```yaml
-# docker-compose.yml
-services:
-  barecms:
-    image: ghcr.io/snowztech/barecms:v1.0.0 # Pin to specific version
 ```
 
 ---
@@ -361,13 +178,6 @@ docker compose logs postgres
 docker compose restart postgres
 ```
 
-**Permission Denied:**
-
-```bash
-# Fix file permissions
-sudo chown -R $USER:$USER .
-```
-
 ### Getting Help
 
 - **Check logs:** `docker compose logs barecms`
@@ -382,9 +192,8 @@ sudo chown -R $USER:$USER .
 Now that BareCMS is installed:
 
 1. **[Complete the Quick Start Tutorial →](quick-start.md)**
-2. **[Build Your First Site →](first-site.md)**
-3. **[Learn the API →](../api/README.md)**
-4. **[Deploy to Production →](../deployment/self-hosting.md)**
+2. **[Learn the API →](../api/README.md)**
+3. **[Deploy to Production →](../deployment/self-hosting.md)**
 
 ---
 

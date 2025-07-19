@@ -365,7 +365,6 @@ If you encounter issues:
 - [Docker Compose Documentation](https://docs.docker.com/compose/)
 - [PostgreSQL Documentation](https://www.postgresql.org/docs/)
 - [Caddy Documentation](https://caddyserver.com/docs/)
-- [BareCMS API Documentation](../api/README.md)
 
 ### Community & Support
 
