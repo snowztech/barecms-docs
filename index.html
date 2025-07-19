@@ -136,30 +136,6 @@
 
       // Custom plugins
       plugins: [
-        // Table of Contents plugin for individual pages
-        function(hook, vm) {
-          hook.doneEach(function() {
-            // Add page-specific TOC if needed
-            const tocElements = document.querySelectorAll('h2, h3');
-            if (tocElements.length > 3) {
-              // Only show TOC for pages with substantial content
-              let tocHtml = '<div class="page_toc"><h4>📋 Page Contents</h4><ul>';
-              tocElements.forEach(el => {
-                const level = el.tagName === 'H2' ? 'toc-h2' : 'toc-h3';
-                const id = el.id || el.textContent.toLowerCase().replace(/[^\w]+/g, '-');
-                el.id = id;
-                tocHtml += `<li class="${level}"><a href="#${id}">${el.textContent}</a></li>`;
-              });
-              tocHtml += '</ul></div>';
-
-              // Add TOC to page (can be toggled off per page)
-              if (!document.querySelector('.no-toc')) {
-                document.querySelector('.content').insertAdjacentHTML('afterbegin', tocHtml);
-              }
-            }
-          });
-        },
-
         // Edit on GitHub link
         function(hook, vm) {
           hook.beforeEach(function (html) {
