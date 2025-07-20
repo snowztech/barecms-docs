@@ -1,4 +1,4 @@
-<img src="assets/logo.png" alt="BareCMS Logo" width="120" height="120">
+<img src="assets/barecms.png" alt="BareCMS Logo" width="120" height="120">
 
 # BareCMS
 
